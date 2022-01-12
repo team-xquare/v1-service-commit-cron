@@ -1,4 +1,5 @@
 import aiohttp
+from main import logger
 from bs4 import BeautifulSoup
 
 async def run(user: str) -> int:
@@ -11,7 +12,8 @@ async def run(user: str) -> int:
             try:
                 resp = object.getText()
                 commit_count = int(resp.split('\n')[1].strip().replace(',', ''))
+                logger.info('%s 커밋수: %d', user, commit_count)
                 return(commit_count)
-            except:
-                pass
+            except Exception as e:
+                logger.fatal(e)
             

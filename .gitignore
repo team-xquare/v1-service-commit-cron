@@ -11,3 +11,5 @@ venv/
 
 # Dependency directories
 node_modules/
+
+.python-version
