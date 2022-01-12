@@ -7,7 +7,7 @@ authors = ["hwc9169 <hwc9169@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 aiohttp = "^3.8.1"
-asyncio = "^3.4.3"
+bs4 = "^0.0.1"
 
 [tool.poetry.dev-dependencies]
 
