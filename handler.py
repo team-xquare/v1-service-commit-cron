@@ -3,9 +3,12 @@ import logging
 import time
 import asyncio
 import get_commit
+import redis
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+rd = redis.StrictRedis(host='redis', port=6379, db=0)
 
 async def main():
     github_ids = ["Sonchaegeon", "hwc9169", "jeongjiwoo0522", "kimxwan0319", "leeseojune53", "hwc9169", "silverbeen", "JaewonKim04"]
