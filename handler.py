@@ -3,25 +3,21 @@ import logging
 import time
 import asyncio
 import get_commit
-import redis
+import aioredis
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-rd = redis.StrictRedis(host='redis', port=6379, db=0)
-
 async def main():
-    github_ids = ["Sonchaegeon", "hwc9169", "jeongjiwoo0522", "kimxwan0319", "leeseojune53", "hwc9169", "silverbeen", "JaewonKim04"]
-    fts = [asyncio.ensure_future(get_commit.run(github_id)) for github_id in github_ids]
-    r = await asyncio.gather(*fts)
-    return r
+    redis = aioredis.from_url('redis://127.0.0.1')
+    github_ids = ["Sonchaegeon", "hwc9169", "jeongjiwoo0522", "kimxwan0319", "leeseojune53", "JaewonKim04", "silverbeen", "JaewonKim04"]
+    fts = [asyncio.ensure_future(get_commit.run(redis, github_id)) for github_id in github_ids]
+    return await asyncio.gather(*fts)
 
 def lambda_handler(event, context):
     logging.info('깃허브 커밋 수 크롤러 동작.....')
     start = time.time()
-    loop = asyncio.get_event_loop()
-    body = loop.run_until_complete(main())
-    loop.close()
+    body = asyncio.run(main())
     end = time.time()
     logging.info('총 소요 시간: %s', end - start)
 
@@ -41,3 +37,5 @@ def lambda_handler(event, context):
         "event": event
     }
     """
+
+lambda_handler(None, None)
