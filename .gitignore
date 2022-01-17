@@ -5,3 +5,11 @@ go/
 .python-version
 
 venv/
+
+# Serverless directories
+.serverless/
+
+# Dependency directories
+node_modules/
+
+.python-version
