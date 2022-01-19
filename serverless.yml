@@ -5,6 +5,7 @@ frameworkVersion: '2 || 3'
 provider:
   name: aws
   runtime: python3.8
+  region: ap-northeast-2
   lambdaHashingVersion: 20201221
 
 functions:
