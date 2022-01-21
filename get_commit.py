@@ -3,14 +3,14 @@ import logging
 import json
 import redis 
 
-from main import logger
+from typing import Dict
 from lxml import html
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-async def run(redis: redis.Redis, user: str) -> int:
+async def run(redis: redis.Redis, user: str) -> Dict[str, str]:
     async with aiohttp.ClientSession() as session:
         github_url = 'https://github.com/' + user
         async with session.get(github_url) as resp:
