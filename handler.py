@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 import logging
 import time
 import asyncio
@@ -7,10 +8,11 @@ import get_commit
 import aioredis
 
 from dotenv import load_dotenv
+load_dotenv()
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-load_dotenv()
+
 
 async def main():
     redis = aioredis.from_url('redis://'+os.getenv('REDIS_HOST'))
@@ -19,11 +21,11 @@ async def main():
     return await asyncio.gather(*fts)
 
 def lambda_handler(event, context):
-    logging.info('깃허브 커밋 수 크롤러 동작.....')
+    logger.info('깃허브 커밋 수 크롤러 동작.....')
     start = time.time()
     body = asyncio.run(main())
     end = time.time()
-    logging.info('총 소요 시간: %s', end - start)
+    logger.info('총 소요 시간: %s', end - start)
 
     response = {
         "statusCode": 200,

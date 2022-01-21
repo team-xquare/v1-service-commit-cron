@@ -14,4 +14,4 @@ node_modules/
 
 .python-version
 
-.env
+.env*
